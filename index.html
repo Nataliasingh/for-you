@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    animation: fade 0.6s ease;
+  }
+
+  h1, h2 {
+    color: #ff4d6d;
+  }
+
+  p {
+    color: #444;
+    line-height: 1.6;
+    margin: 15px 0;
+  }
+
+  button {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+  button:hover {
+    background: #e63950;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @keyframes fade {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="page1">
+  <h1>Hey <b>my everything </b> ❤️</h1>
+  <p>From <b>your buggu</b></p>
+  <h2>Will you be my Valentine?</h2>
+  <button onclick="nextPage(2)">Yes 💖</button>
+</div>
+
+<div class="card hidden" id="page2">
+  <h1>Happy Rose Day 🌹</h1>
+  <p>
+    This rose is for you.<br>
+    Not because today says so,<br>
+    but because you genuinely matter to me.
+  </p>
+  <button onclick="nextPage(3)">Next ➜</button>
+</div>
+
+<div class="card hidden" id="page3">
+  <h1>This is how I feel 💍</h1>
+  <p>
+    I didn’t plan this, but here it is.<br><br>
+
+    Somewhere between our late-night calls<br>
+    and sharing everything with you,<br>
+    my feelings quietly grew.<br><br>
+
+    With you, I feel calm — not just calm,<br>
+    but real.<br>
+    I don’t have to pretend,<br>
+    or think twice before speaking.<br>
+    Everything just feels right.<br><br>
+
+    You’ve become very important to me,<br>
+    in a way I never expected.<br><br>
+
+    So here’s me being honest:<br>
+    will you be my peace,<br>
+    while I happily stay your forever chaos?
+  </p>
+  <h2>Will you be mine?</h2>
+  <button onclick="final()">Yes 💕</button>
+</div>
+
+<script>
+  function nextPage(n) {
+    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+    document.getElementById('page' + n).classList.remove('hidden');
+  }
+
+  function final() {
+    alert("You just made me really happy ❤️");
+  }
+</script>
+
+</body>
+</html>
