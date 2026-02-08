@@ -9,11 +9,12 @@
   body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   .card {
@@ -25,6 +26,7 @@
     max-width: 380px;
     box-shadow: 0 12px 28px rgba(0,0,0,0.25);
     animation: fade 0.6s ease;
+    z-index: 2;
   }
 
   h1, h2 {
@@ -70,35 +72,55 @@
     from { opacity: 0; transform: scale(0.92); }
     to { opacity: 1; transform: scale(1); }
   }
+
+  /* Falling hearts */
+  .heart {
+    position: fixed;
+    top: -10px;
+    font-size: 18px;
+    color: rgba(255, 77, 109, 0.7);
+    animation: fall linear forwards;
+    z-index: 1;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
 </style>
 </head>
 
 <body>
 
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <!-- PAGE 1 -->
 <div class="card" id="page1">
-  <h1>Hey my everything ❤️</h1>
-  <p>From <b>your buggu</b></p>
+  <h1>Hey <b>HIS_NAME</b> ❤️</h1>
+  <p>From <b>YOUR_NAME</b></p>
   <h2>Will you be my Valentine?</h2>
 
   <div class="buttons">
-    <button onclick="nextPage(2)">Yes 💖</button>
+    <button onclick="startExperience(2)">Yes 💖</button>
     <button class="secondary" onclick="noValentine()">No</button>
   </div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="card hidden" id="page2">
-  <h1>Rose for you 🌹</h1>
+  <h1>Happy Rose Day 🌹</h1>
   <p>
     This rose is for you.<br>
     Not because today says so,<br>
     but because somewhere along the way,<br>
     you became special to me.
   </p>
-  <p>
-    You matter — more than you probably realize.
-  </p>
+  <p>You genuinely matter to me.</p>
 
   <div class="buttons">
     <button onclick="nextPage(3)">Next ➜</button>
@@ -107,7 +129,6 @@
 
 <!-- PAGE 3 -->
 <div class="card hidden" id="page3">
-    <h1>This is how I feel 💍</h1>
   <p>
     Somewhere between our late-night calls<br>
     and sharing everything with you,<br>
@@ -126,37 +147,51 @@
     in a way I never expected.
   </p>
 
-  <p>
-    So here’s me being honest:
-  </p>
-
-  <h2>Will you be my peace,<br>while I stay your forever chaos?</h2>
+  <h2>
+    Will you be my peace,<br>
+    while I stay your forever chaos?
+  </h2>
 
   <div class="buttons">
-    <button onclick="yesResponse()">Yes ❤️</button>
+    <button onclick="nextPage(4)">Yes ❤️</button>
     <button class="secondary" onclick="noResponse()">No</button>
   </div>
 </div>
 
+<!-- PAGE 4 (YOUR REACTION) -->
+<div class="card hidden" id="page4">
+  <h1>❤️</h1>
+  <p>
+    This means more to me than I can explain.
+  </p>
+  <p>
+    I promise honesty, care,<br>
+    and choosing you — every day.
+  </p>
+  <p>
+    Thank you for choosing me.
+  </p>
+</div>
+
 <script>
+  const music = document.getElementById("bgMusic");
+
+  function startExperience(page) {
+    music.volume = 0.3;
+    music.play().catch(() => {});
+    nextPage(page);
+  }
+
   function nextPage(n) {
     document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
     document.getElementById('page' + n).classList.remove('hidden');
   }
 
-  function yesResponse() {
-    alert(
-      "You have no idea how happy this makes me.\n\n" +
-      "I promise to be honest, caring,\n" +
-      "and to choose you every day. ❤️"
-    );
-  }
-
   function noResponse() {
     alert(
       "Thank you for being honest.\n\n" +
-      "I meant every word I said,\n" +
-      "and I respect whatever you feel."
+      "I respect how you feel,\n" +
+      "and I meant every word I said."
     );
   }
 
@@ -166,6 +201,18 @@
       "I just wanted to be honest with you."
     );
   }
+
+  /* Falling hearts */
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+  }, 900);
 </script>
 
 </body>
